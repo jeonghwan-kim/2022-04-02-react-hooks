@@ -1,18 +1,15 @@
-import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
-import UseState1 from "./UseState1";
-import UseState2 from "./UseState2";
-import UseState3 from "./UseState3";
-import UseState4 from "./UseState4";
+import NameField1 from "./NameField1";
+import NameField2 from "./NameField2";
+import NameField3 from "./NameField3";
+import NameField4 from "./NameField4";
 
 function App() {
   return (
     <>
-      <UseState1 />
-      <UseState2 />
-      <UseState3 />
-      <UseState4 />
+      <NameField1 />
+      <NameField2 />
+      <NameField3 />
+      <NameField4 />
     </>
   );
 }

@@ -4,14 +4,19 @@
 
 import { ChangeEventHandler } from "react";
 
-function UseState1() {
+function NameField1() {
   const name = "jeonghwan";
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     console.log(e.target.value);
     // ?
   };
-  return <input value={name} onChange={handleChange} />;
+  return (
+    <div>
+      <h1>NameField1</h1>
+      <input value={name} onChange={handleChange} />
+    </div>
+  );
 }
 
-export default UseState1;
+export default NameField1;

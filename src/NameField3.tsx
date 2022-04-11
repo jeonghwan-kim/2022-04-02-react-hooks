@@ -1,5 +1,5 @@
 /**
- * 커서를 안으로
+ * 다중 상태
  */
 
 import React from "react";
@@ -14,14 +14,12 @@ const useForceUpdate = () => {
   };
 };
 
-let cursor = 0;
-
 const { useState } = (function MyReact() {
   // 상태
   const values: string[] = [];
   const isInitialized: (boolean | undefined)[] = [];
 
-  function useState(initilaValue?: string) {
+  function useState(cursor: number, initilaValue?: string) {
     const { forceUpdate } = useForceUpdate();
 
     if (!isInitialized[cursor]) {
@@ -30,15 +28,10 @@ const { useState } = (function MyReact() {
     }
 
     const value = values[cursor];
-    const setValueAt = (cursor: number) => (value: any) => {
-      console.log("setValue", cursor);
+    const setValue = (value: any) => {
       values[cursor] = value;
       forceUpdate();
     };
-
-    const setValue = setValueAt(cursor);
-
-    cursor++;
 
     return [value, setValue];
   }
@@ -48,24 +41,24 @@ const { useState } = (function MyReact() {
   };
 })();
 
-function UseState4() {
-  cursor = 0;
-  const [name, setName] = useState("asdf"); // cursor 0
-  const [lastName, setLastName] = useState("a"); // cursor 1
+function NameField3() {
+  const [firstname, setFirstname] = useState(0, "jeonghwan");
+  const [lastname, setLastname] = useState(1, "kim");
 
-  const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    (setName as Function)(e.target.value);
+  const handleChangeFirstname: ChangeEventHandler<HTMLInputElement> = (e) => {
+    (setFirstname as Function)(e.target.value);
   };
-  const handleChangeLastName: ChangeEventHandler<HTMLInputElement> = (e) => {
-    (setLastName as Function)(e.target.value);
+  const handleChangeLastname: ChangeEventHandler<HTMLInputElement> = (e) => {
+    (setLastname as Function)(e.target.value);
   };
 
   return (
     <div>
-      <input value={name as string} onChange={handleChange} />
-      <input value={lastName as string} onChange={handleChangeLastName} />
+      <h1>NameField3</h1>
+      <input value={firstname as string} onChange={handleChangeFirstname} />
+      <input value={lastname as string} onChange={handleChangeLastname} />
     </div>
   );
 }
 
-export default UseState4;
+export default NameField3;

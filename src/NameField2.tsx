@@ -41,16 +41,17 @@ const { useName } = (function MyReact() {
   };
 })();
 
-function UseState2() {
-  const [name, setName] = useName("asdf");
+function NameField2() {
+  const [name, setName] = useName("jeonghwan");
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     setName(e.target.value);
   };
   return (
     <div>
+      <h1>NameField2</h1>
       <input value={name} onChange={handleChange} />
     </div>
   );
 }
 
-export default UseState2;
+export default NameField2;

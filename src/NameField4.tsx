@@ -1,5 +1,5 @@
 /**
- * 다중 상태
+ * 커서를 안으로
  */
 
 import React from "react";
@@ -14,12 +14,14 @@ const useForceUpdate = () => {
   };
 };
 
+let cursor = 0;
+
 const { useState } = (function MyReact() {
   // 상태
   const values: string[] = [];
   const isInitialized: (boolean | undefined)[] = [];
 
-  function useState(cursor: number, initilaValue?: string) {
+  function useState(initilaValue?: string) {
     const { forceUpdate } = useForceUpdate();
 
     if (!isInitialized[cursor]) {
@@ -28,10 +30,15 @@ const { useState } = (function MyReact() {
     }
 
     const value = values[cursor];
-    const setValue = (value: any) => {
+    const setValueAt = (cursor: number) => (value: any) => {
+      console.log("setValue", cursor);
       values[cursor] = value;
       forceUpdate();
     };
+
+    const setValue = setValueAt(cursor);
+
+    cursor++;
 
     return [value, setValue];
   }
@@ -41,9 +48,10 @@ const { useState } = (function MyReact() {
   };
 })();
 
-function UseState3() {
-  const [name, setName] = useState(0, "asdf");
-  const [lastName, setLastName] = useState(1, "a");
+function NameField4() {
+  cursor = 0;
+  const [name, setName] = useState("asdf"); // cursor 0
+  const [lastName, setLastName] = useState("a"); // cursor 1
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     (setName as Function)(e.target.value);
@@ -54,10 +62,11 @@ function UseState3() {
 
   return (
     <div>
+      <h1>NameField4</h1>
       <input value={name as string} onChange={handleChange} />
       <input value={lastName as string} onChange={handleChangeLastName} />
     </div>
   );
 }
 
-export default UseState3;
+export default NameField4;
