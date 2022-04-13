@@ -5,12 +5,14 @@
 import { ChangeEventHandler } from "react";
 
 function NameField1() {
-  const name = "jeonghwan";
+  let name = "정환";
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    console.log(e.target.value);
     // ?
+    name = e.target.value;
+    console.log("handleChange", name);
   };
+  console.log("NameField", name);
   return (
     <div>
       <h1>NameField1</h1>

@@ -16,24 +16,24 @@ const useForceUpdate = () => {
 
 const { useName } = (function MyReact() {
   // 이름
-  let name: string;
+  let firstname: string;
   let isInitialized = false;
 
-  function useName(initilaName?: string): [string, (value: string) => void] {
+  function useName(initilaValue = ""): [string, (value: string) => void] {
     const { forceUpdate } = useForceUpdate();
 
     if (!isInitialized) {
-      name = initilaName || "";
+      firstname = initilaValue;
       isInitialized = true;
     }
 
     // 이름 변경
-    const setName = (nextName: string) => {
-      name = nextName;
+    const setFirstname = (value: string) => {
+      firstname = value;
       forceUpdate();
     };
 
-    return [name, setName];
+    return [firstname, setFirstname];
   }
 
   return {
@@ -42,14 +42,16 @@ const { useName } = (function MyReact() {
 })();
 
 function NameField2() {
-  const [name, setName] = useName("jeonghwan");
+  const [firstname, setFirstname] = useName("정환");
+
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    setName(e.target.value);
+    setFirstname(e.target.value);
   };
+
   return (
     <div>
       <h1>NameField2</h1>
-      <input value={name} onChange={handleChange} />
+      <input value={firstname} onChange={handleChange} />
     </div>
   );
 }

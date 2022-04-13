@@ -19,11 +19,11 @@ const { useState } = (function MyReact() {
   const values: string[] = [];
   const isInitialized: (boolean | undefined)[] = [];
 
-  function useState(cursor: number, initilaValue?: string) {
+  function useState(cursor: number, initilaValue = "") {
     const { forceUpdate } = useForceUpdate();
 
     if (!isInitialized[cursor]) {
-      values[cursor] = initilaValue || "";
+      values[cursor] = initilaValue;
       isInitialized[cursor] = true;
     }
 
@@ -42,8 +42,8 @@ const { useState } = (function MyReact() {
 })();
 
 function NameField3() {
-  const [firstname, setFirstname] = useState(0, "jeonghwan");
-  const [lastname, setLastname] = useState(1, "kim");
+  const [firstname, setFirstname] = useState(0, "정환");
+  const [lastname, setLastname] = useState(1, "김");
 
   const handleChangeFirstname: ChangeEventHandler<HTMLInputElement> = (e) => {
     (setFirstname as Function)(e.target.value);

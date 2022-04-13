@@ -14,57 +14,67 @@ const useForceUpdate = () => {
   };
 };
 
-let cursor = 0;
-
-const { useState } = (function MyReact() {
-  // 상태
+const { useState, resetCursor } = (function MyReact() {
+  let cursor = 0;
   const values: string[] = [];
   const isInitialized: (boolean | undefined)[] = [];
 
-  function useState(initilaValue?: string) {
+  function useState(initilaValue = "") {
     const { forceUpdate } = useForceUpdate();
 
     if (!isInitialized[cursor]) {
-      values[cursor] = initilaValue || "";
+      values[cursor] = initilaValue;
       isInitialized[cursor] = true;
     }
 
     const value = values[cursor];
+    // 커서를 지정한 세터를 만든다
     const setValueAt = (cursor: number) => (value: any) => {
-      console.log("setValue", cursor);
       values[cursor] = value;
       forceUpdate();
     };
 
-    const setValue = setValueAt(cursor);
+    // const setValue = setValueAt(cursor);
+    const setValue = (value: any) => {
+      values[cursor] = value;
+      forceUpdate();
+    };
 
+    // 커서를 1 증가한다
     cursor++;
 
     return [value, setValue];
   }
 
+  function resetCursor() {
+    cursor = 0;
+  }
+
   return {
     useState,
+    resetCursor,
   };
 })();
 
 function NameField4() {
-  cursor = 0;
-  const [name, setName] = useState("asdf"); // cursor 0
-  const [lastName, setLastName] = useState("a"); // cursor 1
+  // 커서를 다시 설정한다
+  resetCursor();
 
-  const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    (setName as Function)(e.target.value);
+  const [firstname, setFirstname] = useState("정환"); // cursor 0
+  const [lasname, setLastname] = useState("김"); // cursor 1
+
+  const handleChangeFirstname: ChangeEventHandler<HTMLInputElement> = (e) => {
+    (setFirstname as Function)(e.target.value);
   };
-  const handleChangeLastName: ChangeEventHandler<HTMLInputElement> = (e) => {
-    (setLastName as Function)(e.target.value);
+  const handleChangeLastname: ChangeEventHandler<HTMLInputElement> = (e) => {
+    (setLastname as Function)(e.target.value);
   };
 
   return (
     <div>
       <h1>NameField4</h1>
-      <input value={name as string} onChange={handleChange} />
-      <input value={lastName as string} onChange={handleChangeLastName} />
+      <input value={firstname as string} onChange={handleChangeFirstname} />
+      <input value={lasname as string} onChange={handleChangeLastname} />
     </div>
   );
 }
