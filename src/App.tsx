@@ -8,6 +8,8 @@ import MyComponent3 from "./useEffect/MyComponent3";
 import MyComponent4 from "./useEffect/MyComponent4";
 import MyComponent5 from "./useEffect/MyComponent5 ";
 import MyComponent6Wrapper from "./useEffect/MyComponent6";
+import CountApp1 from "./useContext/CountApp1";
+import CountApp2 from "./useContext/CountApp2";
 
 function App() {
   return (
@@ -22,7 +24,9 @@ function App() {
       {/* <MyComponent3 /> */}
       {/* <MyComponent4 /> */}
       {/* <MyComponent5 /> */}
-      <MyComponent6Wrapper />
+      {/* <MyComponent6Wrapper /> */}
+      {/* <CountApp1 /> */}
+      <CountApp2 />
     </>
   );
 }
